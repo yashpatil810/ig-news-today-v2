@@ -1,0 +1,9 @@
+SCREENSHOT PLACEHOLDER
+
+Create a file named 'screenshot.png' (1200x900px recommended) to display as the theme preview in WordPress admin.
+
+This is the image that appears in Appearance > Themes in the WordPress dashboard.
+
+Recommended dimensions: 1200x900 pixels
+Format: PNG or JPG
+

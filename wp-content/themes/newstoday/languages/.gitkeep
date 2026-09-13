@@ -1,0 +1,3 @@
+# Translation files go here
+# Generate .pot file using: wp i18n make-pot . languages/newstoday.pot
+

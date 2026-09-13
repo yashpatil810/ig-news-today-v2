@@ -1,0 +1,124 @@
+/**
+ * Cookies Template Styles
+ *
+ * @package NewsToday
+ */
+
+.cookies-page {
+    background-color: #FFFFFF;
+
+    // Remove default site-content spacing for this template
+    .site-content:has(&) {
+        padding: 0;
+        margin: 0;
+    }
+
+    .cookies-hero {
+        background-color: #444CBC;
+        min-height: 200px;
+        padding: 60px;
+        display: flex;
+        align-items: center;
+
+        @media (max-width: 1023px) {
+            padding: 50px 40px;
+        }
+
+        @media (max-width: 767px) {
+            padding: 32px 24px;
+            min-height: 160px;
+        }
+    }
+
+    .cookies-hero-container {
+        max-width: 1440px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .cookies-hero-title {
+        margin: 0;
+        font-family: 'Merriweather', sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 40px;
+        line-height: 48px;
+        letter-spacing: 0;
+        vertical-align: middle;
+        color: #FFFFFF;
+
+        @media (max-width: 1023px) {
+            font-size: 36px;
+            line-height: 44px;
+        }
+
+        @media (max-width: 767px) {
+            font-size: 30px;
+            line-height: 38px;
+        }
+    }
+
+    .cookies-content {
+        background-color: #FFFFFF;
+        padding: 60px 40px 20px;
+
+        @media (max-width: 767px) {
+            padding: 40px 20px 30px;
+        }
+    }
+
+    .cookies-content-container {
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 60px;
+        min-height: 907px;
+    }
+
+    .cookies-paragraph {
+        margin: 0;
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 50px;
+        letter-spacing: 0;
+        vertical-align: middle;
+        color: #000000;
+
+        @media (max-width: 767px) {
+            font-size: 18px;
+            line-height: 32px;
+        }
+    }
+
+    .cookies-list-block {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .cookies-list {
+        margin: 0;
+        padding-left: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        li {
+            font-family: 'Lato', sans-serif;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 50px;
+            letter-spacing: 0;
+            vertical-align: middle;
+            color: #000000;
+
+            @media (max-width: 767px) {
+                font-size: 18px;
+                line-height: 32px;
+            }
+        }
+    }
+}

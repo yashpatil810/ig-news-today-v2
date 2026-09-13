@@ -1,0 +1,83 @@
+/**
+ * Component Styles
+ * 
+ * @package NewsToday
+ */
+
+// Component Imports
+@import 'components/subscribe-form';
+@import 'components/navigation-box';
+@import 'components/contact-banner';
+@import 'components/horizontal-news-letter';
+
+// Buttons
+.button,
+button,
+input[type="submit"],
+input[type="button"] {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: $primary-color;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    @include transition(background-color);
+
+    &:hover,
+    &:focus {
+        background-color: darken($primary-color, 10%);
+        color: #fff;
+    }
+}
+
+// Navigation
+.main-navigation {
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        display: inline-block;
+        margin-right: $spacing-unit;
+    }
+
+    a {
+        color: #fff;
+
+        &:hover,
+        &:focus {
+            color: $primary-color;
+        }
+    }
+}
+
+// Article/Post
+.entry-header {
+    margin-bottom: $spacing-unit;
+}
+
+.entry-title {
+    margin-bottom: 0.5rem;
+}
+
+.entry-meta {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.entry-content {
+    margin-top: $spacing-unit;
+}
+
+// Widgets
+.widget {
+    margin-bottom: $spacing-unit * 2;
+}
+
+.widget-title {
+    font-size: 1.25rem;
+    margin-bottom: $spacing-unit;
+}

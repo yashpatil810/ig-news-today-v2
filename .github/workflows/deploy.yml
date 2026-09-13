@@ -1,0 +1,67 @@
+name: FTP Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install theme dependencies
+        working-directory: wp-content/themes/newstoday
+        run: npm install
+
+      - name: Build SCSS / Vite
+        working-directory: wp-content/themes/newstoday
+        run: npm run build
+
+      - name: Deploy files to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          protocol: ftp
+          server: 72.62.224.209
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ./
+          local-dir: ./
+          dangerous-clean-slate: false
+          preserve: true
+          exclude: |
+            **/.git*
+            **/.github*
+            wp-config.php
+            .htaccess
+            php.ini
+            web.config
+            robots.txt
+            .env
+            .env.*
+            wp-admin/**
+            wp-includes/**
+            wp-content/cache/**
+            wp-content/debug.log
+            wp-content/plugins/**
+            wp-content/themes/**
+            !wp-content/themes/newstoday/**
+            wp-content/uploads/**
+
+            # Do NOT upload node_modules anywhere
+            node_modules/**
+            wp-content/themes/newstoday/node_modules/**
+
+            vendor/**
+            *.log
+            *.zip
+            *.sql
+            package-lock.json

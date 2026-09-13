@@ -1,0 +1,102 @@
+.header-images {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 40px;
+    justify-content: center;
+
+    @media (max-width: 767px) {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+
+        .header-image-slot:first-child,
+        .header-image-slot:last-child {
+            display: none;
+        }
+    }
+
+    .header-ad-carousel .carousel-item {
+        display: none;
+    }
+
+    .header-ad-carousel .carousel-item.active {
+        display: block;
+    }
+}
+
+.horizontal-single-ad {
+    margin: 32px 0;
+    display: flex;
+    justify-content: center;
+
+    @media (max-width: 767px) {
+        margin: 20px 0;
+    }
+
+    .horizontal-ad-carousel {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carousel-item {
+        display: none;
+    }
+
+    .carousel-item.active {
+        display: block;
+    }
+
+    img {
+        max-width: 100%;
+    }
+}
+
+.horizontal-single-ad-google-ad {
+    display: flex;
+    justify-content: center;
+
+    a {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.sidebar-big-small-ad {
+    height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    // Hide container if completely empty or has no child elements
+    &:empty,
+    &:not(:has(*)) {
+        display: none;
+    }
+
+    // Only apply gap when there are visible child elements with content
+    &:has(.sidebar-ad-block *) {
+        gap: 30px;
+    }
+
+    @media (max-width: 767px) {
+        height: auto;
+        width: 100%;
+        align-items: stretch;
+    }
+
+    // Hide empty ad blocks
+    .sidebar-ad-block:not(:has(*)) {
+        display: none;
+    }
+
+    .sidebar-ad-carousel .carousel-item {
+        display: none;
+    }
+
+    .sidebar-ad-carousel .carousel-item.active {
+        display: block;
+    }
+}

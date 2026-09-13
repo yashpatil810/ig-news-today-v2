@@ -1,0 +1,189 @@
+.single-directory-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 60px;
+
+    @media screen and (max-width: 767px) {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .single-directory-content {
+        width: -webkit-fill-available;
+
+        .directory-section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 60px;
+            margin-bottom: 80px;
+
+            @media screen and (max-width: 767px) {
+                flex-direction: column;
+                margin-bottom: 40px;
+                gap: 20px;
+            }
+
+            .directory-section-left {
+                width: 272px;
+                flex-shrink: 0;
+
+                @media screen and (max-width: 767px) {
+                    width: 100%;
+                }
+            }
+
+            .directory-section-right {
+                width: -webkit-fill-available;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+
+                @media screen and (max-width: 767px) {
+                    width: 100%;
+                }
+            }
+
+            .directory-logo {
+                max-width: 260px;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                    object-fit: contain;
+                }
+
+                &--placeholder {
+                    width: 100%;
+                }
+            }
+
+            .directory-title {
+                margin-bottom: 0;
+                text-transform: uppercase;
+                font-family: 'Lato', sans-serif;
+                font-weight: 700;
+                font-size: 30px;
+                line-height: 100%;
+                color: #000000;
+
+                @media screen and (max-width: 767px) {
+                    font-size: 24px;
+                }
+            }
+
+            .directory-section-title {
+                font-family: Lato;
+                font-weight: 700;
+                font-size: 30px;
+                line-height: 100%;
+                color: #000000;
+
+                @media screen and (max-width: 767px) {
+                    font-size: 24px;
+                }
+            }
+
+            .directory-website-link {
+                padding: 16px 28px;
+                font-family: 'Lato', sans-serif;
+                font-weight: 700;
+                font-size: 20px;
+                line-height: 100%;
+                color: #3C57BC;
+                border-radius: 28.79px;
+                text-decoration: none;
+                border: 1.09px solid #3C57BC;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                width: fit-content;
+
+
+                @media screen and (max-width: 767px) {
+                    padding: 10px 20px;
+                }
+            }
+
+            .directory-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+
+                .directory-tag {
+                    padding: 5.5px 18.5px;
+                    border: 1px solid #D9D9D9;
+                    color: #3C57BC;
+                }
+            }
+
+            .directory-description {
+                font-family: 'Lato', sans-serif;
+                font-weight: 500;
+                font-size: 25px;
+                line-height: 1.6;
+                color: #000000;
+
+                @media screen and (max-width: 767px) {
+                    font-size: 20px;
+                }
+            }
+
+            .directory-contact-details {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .directory-contact-detail {
+                    font-family: 'Lato', sans-serif;
+                    font-weight: 700;
+                    font-size: 25px;
+                    line-height: 1.2;
+                    color: #000000;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    @media screen and (max-width: 767px) {
+                        font-size: 20px;
+                    }
+
+                    .directory-contact-detail-label {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .directory-sevices-list {
+                font-family: 'Lato', sans-serif;
+                font-weight: 400;
+                font-size: 25px;
+                line-height: 1.2;
+                color: #000000;
+
+                ul {
+                    li {
+                        padding-bottom: 12px;
+                    }
+                }
+
+                @media screen and (max-width: 767px) {
+                    font-size: 20px;
+                }
+            }
+
+        }
+    }
+
+    .single-directory-sidebar {
+        width: 300px;
+        flex-shrink: 0;
+
+        @media screen and (max-width: 767px) {
+            width: 100%;
+        }
+    }
+}

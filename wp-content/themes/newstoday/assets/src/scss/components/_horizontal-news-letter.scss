@@ -1,0 +1,196 @@
+.horizontal-newsletter-section {
+    background: linear-gradient(135deg, #2c5f7c 0%, #1a8fa8 100%);
+    border-radius: 12px;
+    padding: 60px 80px;
+    max-width: 100%;
+    width: 100%;
+
+    @media (max-width: 768px) {
+        padding: 40px 20px;
+    }
+
+    .newsletter-container {
+        display: flex;
+        align-items: center;
+        gap: 60px;
+    }
+
+    .newsletter-content {
+        flex: 1;
+        color: white;
+    }
+
+    .newsletter-content h2 {
+        font-family: 'Merriweather', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+
+    .newsletter-content p {
+        font-size: 1.25rem;
+        opacity: 0.95;
+        font-weight: 300;
+    }
+
+    .divider {
+        width: 2px;
+        height: 120px;
+        background: rgba(255, 255, 255, 0.3);
+        flex-shrink: 0;
+    }
+
+    .newsletter-form {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 16px;
+        align-items: stretch;
+    }
+
+    .email-input {
+        flex: 1;
+        padding: 20px 28px;
+        font-size: 1.05rem;
+        border: none;
+        border-radius: 8px;
+        background: white;
+        color: #333;
+        outline: none;
+        transition: box-shadow 0.3s ease;
+
+        @media (max-width: 768px) {
+            padding: 10px 15px;
+            font-size: 1rem;
+        }
+    }
+
+    .email-input:focus {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    }
+
+    .email-input::placeholder {
+        color: #999;
+    }
+
+    .subscribe-btn {
+        padding: 20px 50px;
+        font-size: 1.25rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 8px;
+        background: #ffc107;
+        color: #000;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+
+        @media (max-width: 768px) {
+            padding: 10px 25px;
+            font-size: 1rem;
+        }
+    }
+
+    .subscribe-btn:hover {
+        background: #ffcd38;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .subscribe-btn:active {
+        transform: translateY(0);
+    }
+
+    .checkbox-wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        color: white;
+    }
+
+    .checkbox-wrapper input[type="checkbox"] {
+        margin-top: 4px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .checkbox-wrapper label {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        cursor: pointer;
+        opacity: 0.95;
+    }
+
+    .checkbox-wrapper a {
+        color: white;
+        text-decoration: underline;
+    }
+
+    .checkbox-wrapper a:hover {
+        opacity: 0.8;
+    }
+
+    .mc4wp-success {
+        color: #013f1c !important;
+        margin: 0 !important;
+    }
+
+    .mc4wp-error {
+        color: #830000 !important;
+        margin: 0 !important;
+    }
+
+    @media (max-width: 1024px) {
+        .newsletter-section {
+            padding: 40px 50px;
+        }
+
+        .newsletter-container {
+            gap: 40px;
+        }
+
+        .newsletter-content h2 {
+            font-size: 2rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .newsletter-section {
+            padding: 30px 25px;
+        }
+
+        .newsletter-container {
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .divider {
+            width: 100%;
+            height: 2px;
+        }
+
+        .newsletter-content h2 {
+            font-size: 1.5rem;
+        }
+
+        .newsletter-content p {
+            font-size: 1.1rem;
+        }
+
+        .form-row {
+            flex-direction: column;
+        }
+
+        .subscribe-btn {
+            width: 100%;
+        }
+    }
+}

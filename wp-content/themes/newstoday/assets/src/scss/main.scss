@@ -1,0 +1,48 @@
+/**
+ * Main SCSS Entry Point
+ *
+ * @package NewsToday
+ */
+
+// Local Fonts (Lato, Merriweather Sans)
+@import 'fonts';
+
+// Configuration & Variables
+@import 'variables';
+@import 'mixins';
+
+// Base Styles
+@import 'base';
+@import 'typography';
+
+// Layout
+@import 'layout';
+
+// Components
+@import 'components';
+
+// Utilities
+@import 'utilities';
+
+// Ads
+@import 'ads';
+
+// Pages
+@import 'pages/home-template';
+@import 'pages/category-template';
+@import 'pages/directory-list-template';
+@import 'pages/ad-with-us-template';
+@import 'pages/about-us-template';
+@import 'pages/contact-us-template';
+@import 'pages/cookies-template';
+@import 'pages/terms-and-conditions-template';
+@import 'pages/privacy-policy-template';
+@import 'pages/faq-template';
+@import 'pages/search-template';
+@import 'pages/single';
+@import 'pages/events-template';
+@import 'pages/single-event';
+@import 'pages/single-directory';
+@import 'pages/footer';
+@import 'pages/author-template';
+@import 'pages/authors-template';

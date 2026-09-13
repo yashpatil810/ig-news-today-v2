@@ -1,0 +1,90 @@
+/**
+ * Base Styles
+ * 
+ * @package NewsToday
+ */
+
+// Box sizing
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+// Root
+html {
+    font-size: $font-size-base;
+    line-height: $line-height-base;
+}
+
+// Body
+body {
+    margin: 0;
+    padding: 0;
+    font-family: $font-family-base;
+    color: $text-color;
+    background-color: $background-color;
+}
+
+// Links
+a {
+    color: $primary-color;
+    text-decoration: none;
+    @include transition(color);
+
+    &:hover,
+    &:focus {
+        color: darken($primary-color, 10%);
+    }
+}
+
+// Images
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+// Container
+.container {
+    @include container;
+}
+
+.mc4wp-success {
+    color: #00A246;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.mc4wp-error {
+    color: #FC0303;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.addtoany_list.a2a_kit_size_32 a:not(.addtoany_special_service)>span {
+    height: 28px !important;
+    line-height: 28px !important;
+    width: 28px !important;
+
+    @media screen and (max-width: 767px) {
+        height: 22px !important;
+        line-height: 22px !important;
+        width: 22px !important;
+    }
+}
+
+.single-post-body .single-post-meta .addtoany_list a {
+    @media screen and (max-width: 767px) {
+        padding-right: 4px !important;
+    }
+}

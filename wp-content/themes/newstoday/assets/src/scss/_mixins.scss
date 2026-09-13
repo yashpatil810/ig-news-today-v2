@@ -1,0 +1,52 @@
+/**
+ * SCSS Mixins
+ * 
+ * @package NewsToday
+ */
+
+// Responsive breakpoints
+@mixin mobile {
+    @media (max-width: $breakpoint-mobile) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (min-width: $breakpoint-tablet) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: $breakpoint-desktop) {
+        @content;
+    }
+}
+
+@mixin wide {
+    @media (min-width: $breakpoint-wide) {
+        @content;
+    }
+}
+
+// Container
+@mixin container {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    padding: 0 $spacing-unit;
+}
+
+// Clearfix
+@mixin clearfix {
+    &::after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+// Transition
+@mixin transition($property: all) {
+    transition: $property $transition-speed $transition-easing;
+}
+

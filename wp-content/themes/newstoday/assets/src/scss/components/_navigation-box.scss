@@ -1,0 +1,93 @@
+/**
+ * Navigation Box Component Styles
+ * 
+ * @package NewsToday
+ */
+
+// Navigation Box Styles
+.sidebar-navigation-box {
+    background: #4338CA;
+    border-radius: 16px;
+    padding: 25px;
+    overflow: hidden;
+
+    @media (max-width: 767px) {
+        border-radius: 12px;
+        padding: 20px;
+    }
+
+    .sidebar-navigation-header {
+        background-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+
+        .navigation-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+
+            svg {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .navigation-title {
+            font-family: 'Merriweather Sans', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+            line-height: 1.2;
+            color: #FFFFFF;
+            margin: 0;
+        }
+    }
+
+    .navigation-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        .navigation-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+            &:last-child {
+                border-bottom: none;
+            }
+
+            a {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 15px 0;
+                text-decoration: none;
+                transition: opacity 0.3s ease;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+
+                .item-arrow {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+
+                    svg {
+                        width: 8px;
+                        height: 12px;
+                    }
+                }
+
+                .item-text {
+                    font-family: 'Merriweather Sans', sans-serif;
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 1.3;
+                    color: #FFFFFF;
+                }
+            }
+        }
+    }
+}

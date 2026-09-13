@@ -1,0 +1,29 @@
+{
+    "name": "newstoday",
+    "version": "1.0.0",
+    "description": "A modern WordPress theme built with Vite, SCSS, and best practices",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "keywords": [
+        "wordpress",
+        "theme",
+        "vite",
+        "scss"
+    ],
+    "author": "Your Name",
+    "license": "GPL-2.0-or-later",
+    "devDependencies": {
+        "@vitejs/plugin-legacy": "^5.4.2",
+        "sass": "^1.77.0",
+        "vite": "^5.4.0",
+        "vite-plugin-image-optimizer": "^1.1.8"
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+    ]
+}

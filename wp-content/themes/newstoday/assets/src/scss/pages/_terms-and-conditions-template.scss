@@ -1,0 +1,98 @@
+/**
+ * Terms and Conditions Template Styles
+ *
+ * @package NewsToday
+ */
+
+.terms-page {
+    background-color: #FFFFFF;
+
+    // Remove default site-content spacing for this template
+    .site-content:has(&) {
+        padding: 0;
+        margin: 0;
+    }
+
+    .terms-hero {
+        background-color: #444CBC;
+        min-height: 200px;
+        padding: 60px;
+        display: flex;
+        align-items: center;
+
+        @media (max-width: 1023px) {
+            padding: 50px 40px;
+        }
+
+        @media (max-width: 767px) {
+            padding: 32px 24px;
+            min-height: 160px;
+        }
+    }
+
+    .terms-hero-container {
+        max-width: 1440px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .terms-hero-title {
+        margin: 0;
+        font-family: 'Merriweather', sans-serif;
+        font-weight: 700;
+        font-style: normal;
+        font-size: 40px;
+        line-height: 48px;
+        letter-spacing: 0;
+        vertical-align: middle;
+        color: #FFFFFF;
+
+        @media (max-width: 1023px) {
+            font-size: 36px;
+            line-height: 44px;
+        }
+
+        @media (max-width: 767px) {
+            font-size: 30px;
+            line-height: 38px;
+        }
+    }
+
+    .terms-content {
+        background-color: #FFFFFF;
+        padding: 60px 40px 40px;
+
+        @media (max-width: 767px) {
+            padding: 40px 20px 30px;
+        }
+    }
+
+    .terms-content-container {
+        max-width: 1200px;
+        width: 100%;
+
+        p {
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 50px;
+            letter-spacing: 0;
+            vertical-align: middle;
+            color: #000000;
+
+            @media (max-width: 767px) {
+                font-size: 18px;
+                line-height: 32px;
+            }
+        }
+
+        ul {
+            li {
+                p {
+                    margin: 0;
+                }
+            }
+        }
+    }
+
+}

@@ -1,0 +1,78 @@
+/**
+ * Utility Classes
+ * 
+ * @package NewsToday
+ */
+
+// Screen reader text
+.screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    word-wrap: normal !important;
+
+    &:focus {
+        background-color: #f1f1f1;
+        border-radius: 3px;
+        box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+        clip: auto !important;
+        color: #21759b;
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 700;
+        height: auto;
+        left: 5px;
+        line-height: normal;
+        padding: 15px 23px 14px;
+        text-decoration: none;
+        top: 5px;
+        width: auto;
+        z-index: 100000;
+    }
+}
+
+// Alignments
+.alignleft {
+    float: left;
+    margin-right: $spacing-unit;
+}
+
+.alignright {
+    float: right;
+    margin-left: $spacing-unit;
+}
+
+.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// Clearfix
+.clearfix {
+    @include clearfix;
+}
+
+// Hidden on desktop
+.hidden-on-desktop {
+    display: none;
+
+    @media (max-width: 767px) {
+        display: block;
+    }
+}
+
+// Hidden on mobile
+.hidden-on-mobile {
+    display: block;
+
+    @media (max-width: 767px) {
+        display: none;
+    }
+}
+
+.hide-force {
+    display: none !important;
+}
