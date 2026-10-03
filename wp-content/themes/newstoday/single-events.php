@@ -32,7 +32,7 @@ $date_range = implode(' - ', $date);
         <?php get_template_part('template-parts/ads/header-ads', null, array('page_id' => $global_blogs_settings_page_id)) ?>
         <div class="breadcrumbs">
             <a href="/">Home</a>
-            <a href="<?php echo get_permalink(get_page_by_path('events')); ?>">Events</a>
+            <a href="<?php echo get_permalink(get_page_by_path('events')); ?>">iGaming Events and Conferences Calendar</a>
             <a href="<?php the_permalink(); ?>"><?php echo the_title(); ?></a>
         </div>
         <div class="single-event-body">

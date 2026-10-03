@@ -139,7 +139,13 @@ get_header();
 
                 <div class="contact-form-container">
                     <div class="contact-form-wrapper">
-                        <?php echo do_shortcode( get_field('contact_form_shortcode') ); ?>
+                        <?php 
+                        $shortcode = get_field('contact_form_shortcode');
+                        if ( empty( $shortcode ) ) {
+                            $shortcode = '[contact-form-7 id="10982" title="Contact form 1"]';
+                        }
+                        echo do_shortcode( $shortcode ); 
+                        ?>
                     </div>
                     <div class="contact-form-submit-section">
                         <p class="contact-privacy-text">
@@ -261,4 +267,3 @@ get_header();
 <?php
 get_footer();
 ?>
-

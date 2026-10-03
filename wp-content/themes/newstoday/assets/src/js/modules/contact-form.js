@@ -123,7 +123,7 @@ export function initContactForm() {
     if (directCardLink) {
         directCardLink.addEventListener('click', (e) => {
             e.preventDefault();
-            window.location.href = 'mailto:info@igamingnewstoday.com';
+            window.location.href = 'mailto:info@wheat-bear-950363.hostingersite.com';
         });
     }
 
