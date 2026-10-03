@@ -3,9 +3,9 @@ Contributors: micropat, addtoany
 Tags: share, social, share buttons, share icons, social media
 License: GPLv2 or later
 Requires at least: 4.5
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 5.6
-Stable tag: 1.8.15
+Stable tag: 1.8.18
 
 Share buttons for WordPress including the AddToAny button, Facebook, Bluesky, Mastodon, WhatsApp, Pinterest, Reddit, many more, and follow icons too.
 
@@ -335,7 +335,7 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 
 == Changelog ==
 
-= 1.8.15 =
-* Fix PHP notice when used with the Complianz plugin
+= 1.8.18 =
+* Update admin styling for WordPress 7.0+
 
 See `changelog.txt` in the plugin's directory for the full changelog.

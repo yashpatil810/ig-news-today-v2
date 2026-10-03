@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -27,19 +27,19 @@ jobs:
         run: npm run build
 
       - name: Deploy files to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          protocol: ftp
           server: 72.62.224.209
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: ./
           local-dir: ./
           dangerous-clean-slate: false
-          preserve: true
           exclude: |
             **/.git*
+            **/.git*/**
             **/.github*
+            **/.github*/**
             wp-config.php
             .htaccess
             php.ini
@@ -52,16 +52,12 @@ jobs:
             wp-content/cache/**
             wp-content/debug.log
             wp-content/plugins/**
-            wp-content/themes/**
-            !wp-content/themes/newstoday/**
             wp-content/uploads/**
-
-            # Do NOT upload node_modules anywhere
-            node_modules/**
-            wp-content/themes/newstoday/node_modules/**
-
+            wp-content/themes/twentytwenty*/**
+            **/node_modules/**
             vendor/**
             *.log
             *.zip
             *.sql
             package-lock.json
+

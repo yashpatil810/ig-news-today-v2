@@ -84,11 +84,11 @@ $faq_page_id = get_the_ID();
                     ),
                     array(
                         'question' => 'Can I submit a press release?',
-                        'answer'   => 'Yes. You can send your press releases to Press@igamingnewstoday.com. Please include all relevant media assets and contact details.'
+                        'answer'   => 'Yes. You can send your press releases to Press@wheat-bear-950363.hostingersite.com. Please include all relevant media assets and contact details.'
                     ),
                     array(
                         'question' => 'Do you accept guest posts or contributed articles?',
-                        'answer'   => 'We consider expert submissions from thought leaders and professionals within the iGaming ecosystem. Email your pitch to Marketing@igamingnewstoday.com.'
+                        'answer'   => 'We consider expert submissions from thought leaders and professionals within the iGaming ecosystem. Email your pitch to Marketing@wheat-bear-950363.hostingersite.com.'
                     ),
                     array(
                         'question' => 'How frequently is your content updated?',

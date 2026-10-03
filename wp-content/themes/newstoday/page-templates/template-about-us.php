@@ -334,7 +334,7 @@ $about_page_id = get_the_ID();
                             <?php 
                             printf(
                                 esc_html__( 'By clicking submit, I acknowledge %s\'s %s', 'newstoday' ),
-                                'igamingnewstoday.com',
+                                'wheat-bear-950363.hostingersite.com',
                                 '<a href="' . esc_url( home_url( '/privacy-policy/' ) ) . '" class="privacy-policy-link">' . esc_html__( 'Privacy Policy', 'newstoday' ) . '</a>'
                             );
                             ?>

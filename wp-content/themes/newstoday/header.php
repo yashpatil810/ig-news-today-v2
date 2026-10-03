@@ -37,7 +37,7 @@
 	{
 	  "@context": "https://schema.org",
 	  "@type": "WebSite",
-	  "url": "https://igamingnewstoday.co/",
+	  "url": "https://wheat-bear-950363.hostingersite.com/",
 	  "name": "iGaming News Today"
 	}
 	</script>
