@@ -71,8 +71,8 @@ $faq_page_id = get_the_ID();
             if ( empty( $faq_items ) ) {
                 $faq_items = array(
                     array(
-                        'question' => 'What is iGamingNewsToday?',
-                        'answer'   => 'iGamingNewsToday is a leading news platform covering the iGaming industry. We provide the latest news, insights, and analysis on online gaming, sports betting, casino games, and regulatory developments.'
+                        'question' => 'What is iGaming News Today?',
+                        'answer'   => 'iGaming News Today is a leading news platform covering the iGaming industry. We provide the latest news, insights, and analysis on online gaming, sports betting, casino games, and regulatory developments.'
                     ),
                     array(
                         'question' => 'Is your content original or sourced from other platforms?',
@@ -84,11 +84,11 @@ $faq_page_id = get_the_ID();
                     ),
                     array(
                         'question' => 'Can I submit a press release?',
-                        'answer'   => 'Yes. You can send your press releases to Press@wheat-bear-950363.hostingersite.com. Please include all relevant media assets and contact details.'
+                        'answer'   => 'Yes. You can send your press releases to press@igamingnewstoday.com. Please include all relevant media assets and contact details.'
                     ),
                     array(
                         'question' => 'Do you accept guest posts or contributed articles?',
-                        'answer'   => 'We consider expert submissions from thought leaders and professionals within the iGaming ecosystem. Email your pitch to Marketing@wheat-bear-950363.hostingersite.com.'
+                        'answer'   => 'We consider expert submissions from thought leaders and professionals within the iGaming ecosystem. Email your pitch to marketing@igamingnewstoday.com.'
                     ),
                     array(
                         'question' => 'How frequently is your content updated?',

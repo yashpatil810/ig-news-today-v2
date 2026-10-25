@@ -16,6 +16,12 @@
 	<?php wp_head(); ?>
 
 
+	<?php
+	// Only load live tracking, verification tags, and pixels on production igamingnewstoday.com (Item 1.5, 2.7)
+	$http_host = isset( $_SERVER['HTTP_HOST'] ) ? strtolower( sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) ) : '';
+	$is_live_site = ( $http_host === 'igamingnewstoday.com' || $http_host === 'www.igamingnewstoday.com' );
+	if ( $is_live_site ) :
+	?>
 	<!-- Google Subscribe with Google (SWG) -->
 	<script async type="application/javascript" src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
 	<script>
@@ -100,6 +106,7 @@
 	<!-- End Meta Pixel Code -->
 
 	<meta name="facebook-domain-verification" content="0eklej33utrlxnisr5qqffnrj6qcfe" />
+	<?php endif; ?>
 
 </head>
 

@@ -33,7 +33,7 @@ $category_query = new WP_Query( $category_args );
 
 // Get category details
 $category_term_id = $category->term_id;
-$category_name    = $category->name;
+$category_name    = ( isset( $category->slug ) && $category->slug === 'sports-betting' ) ? 'Sports Betting' : $category->name;
 $category_color   = newstoday_get_category_color( $category );
 
 // ACF Sponsor fields

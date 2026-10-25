@@ -1,7 +1,6 @@
 <?php
-
 /**
- * The template for displaying all single posts
+ * Template Name: Events Single
  *
  * @package NewsToday
  */
@@ -9,166 +8,147 @@
 get_header();
 $current_post_id = get_the_ID();
 $global_blogs_settings_page_id = 10969;
-the_post();
+
+$start_raw      = get_field( 'start_date' );
+$end_raw        = get_field( 'end_date' );
+$organiser_name = get_field( 'organiser_name' );
+$thumbnail      = get_the_post_thumbnail_url( get_the_ID(), 'full' );
+$register_link  = get_field( 'register_link' );
+$website        = get_field( 'website' );
+$location       = get_field( 'location' );
+
+$date = array();
+if ( $start_raw ) {
+    $date['start'] = $start_raw;
+}
+if ( $end_raw ) {
+    $date['end'] = $end_raw;
+}
+
+$date_range = implode( ' - ', $date );
+
+// Schema.org Event Structured Data (Item 3.2)
+$event_schema = array(
+    '@context'            => 'https://schema.org',
+    '@type'               => 'Event',
+    'name'                => get_the_title(),
+    'url'                 => get_permalink(),
+    'eventStatus'         => 'https://schema.org/EventScheduled',
+    'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+);
+
+$excerpt = get_the_excerpt();
+if ( ! empty( $excerpt ) ) {
+    $event_schema['description'] = wp_strip_all_tags( $excerpt );
+} elseif ( get_the_content() ) {
+    $event_schema['description'] = wp_strip_all_tags( wp_trim_words( get_the_content(), 30 ) );
+}
+
+if ( ! empty( $thumbnail ) ) {
+    $event_schema['image'] = array( esc_url_raw( $thumbnail ) );
+}
+
+if ( ! empty( $start_raw ) ) {
+    $start_time = strtotime( $start_raw );
+    if ( $start_time ) {
+        $event_schema['startDate'] = date( 'c', $start_time );
+    }
+}
+
+if ( ! empty( $end_raw ) ) {
+    $end_time = strtotime( $end_raw );
+    if ( $end_time ) {
+        $event_schema['endDate'] = date( 'c', $end_time );
+    }
+}
+
+if ( ! empty( $location ) ) {
+    $event_schema['location'] = array(
+        '@type'   => 'Place',
+        'name'    => $location,
+        'address' => $location,
+    );
+}
+
+if ( ! empty( $organiser_name ) ) {
+    $event_schema['organizer'] = array(
+        '@type' => 'Organization',
+        'name'  => $organiser_name,
+        'url'   => ! empty( $website ) ? esc_url_raw( $website ) : get_permalink(),
+    );
+}
+
+if ( ! empty( $register_link ) ) {
+    $event_schema['offers'] = array(
+        '@type' => 'Offer',
+        'url'   => esc_url_raw( $register_link ),
+    );
+}
 ?>
+
+<script type="application/ld+json">
+<?php echo json_encode( $event_schema, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ); ?>
+</script>
 
 <main id="primary" class="site-main">
     <div class="container">
-        <?php get_template_part('template-parts/ads/header-ads', null, array('page_id' => $global_blogs_settings_page_id)) ?>
-        <div class="single-post-body">
-            <div class="single-post-content">
-                <div class="single-post-breadcrumbs">
-                    <a href="/">Home</a>
-                    <a href="<?php echo get_category_link(get_the_category()[0]->term_id); ?>"><?php echo get_the_category()[0]->name; ?></a>
-                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                </div>
-                <h1 class="single-post-title"><?php echo the_title(); ?></h1>
-                <div class="single-post-meta">
-                    <div class="single-post-meta-item">
-                        <div class="post-author-info">
-                            <?php $author_id = get_the_author_meta('ID'); ?>
-                            <div class="post-author-avatar">
-                                <div class="avatar-inner">
-                                    <?php echo get_avatar($author_id, 32); ?>
-                                </div>
-                            </div>
-                            <div class="post-author-name">
-                                Written by <a href="<?php echo get_author_posts_url($author_id); ?>"><?php echo get_the_author_meta('display_name', $author_id); ?></a>
-                            </div>
-                        </div>
-                        <span class="single-post-meta-item-value"><?php echo get_the_date(); ?></span>
-                    </div>
-                    <div class="share-buttons">
-                        <?php echo do_shortcode('[addtoany]'); ?>
-                    </div>
-                </div>
-                <div class="single-post-image">
-                    <?php the_post_thumbnail(); ?>
-                </div>
-                <div class="single-post-content-inner">
-                    <?php
-                    $raw_content = get_the_content();
-                    $content     = apply_filters('the_content', $raw_content);
-
-                    /**
-                     * Smart Per-Slot Tracking Logic:
-                     * Check which ad slots were explicitly placed by shortcodes in Gutenberg editor.
-                     * Any unplaced slots (e.g. Slot 2, Slot 3) will be auto-injected dynamically
-                     * so the user NEVER has to manually delete old [horizontal_single_ad] shortcodes!
-                     */
-                    $slot1_manual = (strpos($raw_content, '[horizontal_single_ad') !== false || strpos($raw_content, 'horizontal_ad_1') !== false || strpos($raw_content, 'slot="1"') !== false);
-                    $slot2_manual = (strpos($raw_content, 'horizontal_ad_2') !== false || strpos($raw_content, 'slot="2"') !== false);
-                    $slot3_manual = (strpos($raw_content, 'horizontal_ad_3') !== false || strpos($raw_content, 'slot="3"') !== false);
-
-                    // If all 3 slots were manually placed, output processed content directly
-                    if ($slot1_manual && $slot2_manual && $slot3_manual) {
-                        echo $content;
-                    } else {
-                        $paragraphs  = explode('</p>', $content);
-                        $total_paras = count($paragraphs) - 1;
-
-                        if ($total_paras < 1) {
-                            echo $content;
-                        } else {
-                            $output = '';
-
-                            // Determine points for slots that were NOT manually placed
-                            $slot_points = [];
-
-                            // Candidate paragraph positions based on total paragraph count
-                            $p_for_slot1 = ($total_paras >= 2) ? 2 : 1;
-                            $p_for_slot2 = ($total_paras >= 4) ? 4 : (($total_paras >= 2) ? 2 : 1);
-                            $p_for_slot3 = ($total_paras >= 6) ? 6 : (($total_paras >= 3) ? 3 : $total_paras);
-
-                            if (! $slot1_manual) {
-                                $slot_points[$p_for_slot1][] = 1;
-                            }
-                            if (! $slot2_manual) {
-                                $slot_points[$p_for_slot2][] = 2;
-                            }
-                            if (! $slot3_manual) {
-                                $slot_points[$p_for_slot3][] = 3;
-                            }
-
-                            foreach ($paragraphs as $index => $paragraph) {
-                                if (empty(trim($paragraph)) && $index === count($paragraphs) - 1) {
-                                    continue;
-                                }
-
-                                $output .= $paragraph . '</p>';
-                                $p_num   = $index + 1;
-
-                                if (! empty($slot_points[$p_num])) {
-                                    foreach ($slot_points[$p_num] as $inject_slot) {
-                                        ob_start();
-                                        get_template_part('template-parts/ads/horizontal-single-ad', null, array(
-                                            'slot' => $inject_slot,
-                                        ));
-                                        $ad_html = ob_get_clean();
-
-                                        if (! empty(trim($ad_html))) {
-                                            $output .= '<div class="auto-injected-ad-slot auto-slot-' . $inject_slot . '" style="margin:24px 0;">' . $ad_html . '</div>';
-                                        }
-                                    }
-                                }
-                            }
-
-                            echo $output;
-                        }
-                    }
-                    ?>
-                </div>
-                <!-- Author Profile Card -->
-                <?php get_template_part('template-parts/content/single-author-box'); ?>
-                <!-- Previous and next post -->
-                <div class="single-post-previous-next">
-                    <?php
-                    $prev_post = get_previous_post();
-                    $next_post = get_next_post();
-                    ?>
-                    <nav class="custom-post-navigation">
-                        <?php if ($next_post) : ?>
-                            <div class="nav-next">
-                                <a href="<?php echo get_permalink($next_post->ID); ?>">
-                                    <div class="nav-thumb">
-                                        <?php echo get_the_post_thumbnail($next_post->ID, 'medium'); ?>
-                                    </div>
-                                    <div class="nav-content">
-                                        <span class="nav-subtitle">Previous:</span>
-                                        <span class="nav-title">
-                                            <?php echo get_the_title($next_post->ID); ?>
-                                        </span>
-                                    </div>
-                                </a>
-                            </div>
-                        <?php endif; ?>
-                        <?php if ($prev_post) : ?>
-                            <div class="nav-previous">
-                                <a href="<?php echo get_permalink($prev_post->ID); ?>">
-                                    <div class="nav-thumb">
-                                        <?php echo get_the_post_thumbnail($prev_post->ID, 'medium'); ?>
-                                    </div>
-                                    <div class="nav-content">
-                                        <span class="nav-subtitle">Next:</span>
-                                        <span class="nav-title">
-                                            <?php echo get_the_title($prev_post->ID); ?>
-                                        </span>
-                                    </div>
-                                </a>
-                            </div>
-                        <?php endif; ?>
-
-                    </nav>
-                </div>
-            </div>
-            <div class="single-post-sidebar">
-                <!-- Sidebar big small ad -->
-                <?php get_template_part('template-parts/ads/sidebar-big-small-ad', null, array('page_id' => $current_post_id, 'show_navigation_box' => true, 'show_subscribe_form' => true, 'global_blogs_settings_page_id' => $global_blogs_settings_page_id)); ?>
-            </div>
+        <?php get_template_part('template-parts/ads/header-ads', null, array('page_id' => $global_blogs_settings_page_id)); ?>
+        <div class="breadcrumbs">
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a>
+            <a href="<?php echo esc_url( get_permalink( get_page_by_path( 'events' ) ) ); ?>">Events</a>
+            <a href="<?php the_permalink(); ?>"><?php echo esc_html( get_the_title() ); ?></a>
         </div>
-
-        <div class="single-post-related-posts">
-            <?php get_template_part('template-parts/content/related-posts', null, array('post_id' => $current_post_id)) ?>
+        <div class="single-event-body">
+            <div class="single-event-content">
+                <div class="single-event-header">
+                    <div class="icon-wrapper">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.6016 4.7373H5.60156L13.1805 35.1373L21.6016 4.7373Z" fill="#FC0303"/>
+                        <path d="M34.3973 35.1357H19.1973L26.3973 4.73574L34.3973 35.1357Z" fill="black"/>
+                        </svg>
+                    </div>
+                    <h1 class="single-event-title"><?php echo esc_html( get_the_title() ); ?></h1>
+                </div>
+                <div class="event-meta">
+                    <div class="left-side">
+                        <?php if ( ! empty( $organiser_name ) ) : ?>
+                            <span class="event-meta-item">
+                                <?php echo esc_html( $organiser_name ); ?>
+                            </span>
+                        <?php endif; ?>
+                        <?php if ( ! empty( $date_range ) ) : ?>
+                            <span class="date-range">
+                                <?php echo esc_html( $date_range ); ?>
+                            </span>
+                        <?php endif; ?>
+                    </div>
+                    <?php if ( ! empty( $register_link ) ) : ?>
+                        <div class="right-side">
+                            <a href="<?php echo esc_url( $register_link ); ?>" class="register-link" target="_blank" rel="noopener noreferrer">Register</a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="single-event-image">
+                    <?php if ( ! empty( $thumbnail ) ) : ?>
+                        <div class="event-image-wrapper">
+                            <img src="<?php echo esc_url( $thumbnail ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>">
+                        </div>
+                    <?php endif; ?>
+                    <?php if ( ! empty( $website ) ) : ?>
+                        <div class="event-website-wrapper">
+                            <a href="<?php echo esc_url( $website ); ?>" class="event-website-link" target="_blank" rel="noopener noreferrer">
+                                Website
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="single-event-content-inner">
+                    <?php the_content(); ?>
+                </div>
+            </div>
+            <div class="single-event-sidebar">
+                <?php get_template_part('template-parts/ads/sidebar-big-small-ad', null, array('page_id' => $global_blogs_settings_page_id)); ?>
+            </div>
         </div>
     </div>
 </main>
