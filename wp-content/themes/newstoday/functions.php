@@ -133,3 +133,36 @@ function newstoday_dynamic_cf7_services_dropdown( $tag, $replace ) {
 
     return $tag;
 }
+
+/**
+ * Block /wp-json/wp/v2/users endpoint for non-logged-in users (Item 1.7 & L.9)
+ * Prevents username harvesting while author pages and bylines continue working normally.
+ */
+add_filter( 'rest_authentication_errors', function( $result ) {
+    if ( ! empty( $result ) ) {
+        return $result;
+    }
+    if ( ! is_user_logged_in() ) {
+        $request_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+        if ( strpos( $request_uri, '/wp/v2/users' ) !== false ) {
+            return new WP_Error(
+                'rest_cannot_access',
+                __( 'Only authenticated users can access the users list.', 'newstoday' ),
+                array( 'status' => rest_authorization_required_code() )
+            );
+        }
+    }
+    return $result;
+});
+
+/**
+ * Block author enumeration queries (?author=N) for non-authenticated visitors
+ */
+add_action( 'init', function() {
+    if ( ! is_admin() && ! is_user_logged_in() ) {
+        if ( isset( $_REQUEST['author'] ) && ! empty( $_REQUEST['author'] ) ) {
+            wp_safe_redirect( home_url(), 301 );
+            exit;
+        }
+    }
+});

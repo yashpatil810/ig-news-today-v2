@@ -55,6 +55,20 @@ jobs:
             wp-content/uploads/**
             wp-content/themes/twentytwenty*/**
             **/node_modules/**
+            **/.DS_Store
+            **/.ftp-deploy-sync-state.json
+            wp-content/themes/newstoday/package.json
+            wp-content/themes/newstoday/package-lock.json
+            wp-content/themes/newstoday/vite.config.js
+            wp-content/themes/newstoday/README.md
+            wp-content/themes/newstoday/QUICKSTART.md
+            wp-content/themes/newstoday/screenshot.txt
+            wp-content/themes/newstoday/.gitignore
+            readme.html
+            license.txt
+            wp-links-opml.php
+            .htaccess.bk
+            *.pdf
             vendor/**
             *.log
             *.zip

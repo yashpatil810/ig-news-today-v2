@@ -66,7 +66,7 @@ function convert_emails_to_links( $text ) {
             ?>
             <div class="faq-item">
                 <button class="faq-question" type="button" aria-expanded="false">
-                    <span class="faq-question-text"><?php echo esc_html( $question ); ?></span>
+                    <h2 class="faq-question-text"><?php echo esc_html( $question ); ?></h2>
                     <span class="faq-arrow">
                         <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/src/images/down-arrow.svg' ); ?>" alt="<?php esc_attr_e( 'Toggle', 'newstoday' ); ?>" class="faq-arrow-icon" />
                     </span>

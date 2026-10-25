@@ -147,9 +147,9 @@
             <div class="play-responsibly-wrapper footer-disclaimer">
                 <span class="play-responsibly"><?php esc_html_e('Play Responsibly 18+', 'newstoday'); ?></span>
                 <span class="link-divider"></span>
-                <a href="https://igamingnewstoday.com/responsible-gambling/">Responsible Gambling</a>
+                <a href="<?php echo esc_url( home_url( '/responsible-gambling/' ) ); ?>"><?php esc_html_e( 'Responsible Gambling', 'newstoday' ); ?></a>
                 <span class="link-divider"></span>
-                <a href="https://www.gamcare.org.uk/">GamCare</a>
+                <a href="https://www.gamcare.org.uk/" target="_blank" rel="noopener noreferrer">GamCare</a>
             </div>
         </div>
         <div class="bottom-section">
@@ -160,8 +160,12 @@
                     if (! empty($custom_copyright)) :
                         echo esc_html($custom_copyright);
                     else :
+                        $brand_name = get_bloginfo('name', 'display');
+                        if ( empty($brand_name) || $brand_name === 'iGamingNewsToday' ) {
+                            $brand_name = 'iGaming News Today';
+                        }
                     ?>
-                        <span class="brand-name"><?php echo esc_html(get_bloginfo('name', 'display') ? get_bloginfo('name', 'display') : 'iGamingNewsToday'); ?></span>
+                        <span class="brand-name"><?php echo esc_html( $brand_name ); ?></span>
                         <span class="copyright-text"><?php printf(esc_html__('© %s. All Rights Reserved.', 'newstoday'), date('Y')); ?></span>
                     <?php endif; ?>
                 </div>

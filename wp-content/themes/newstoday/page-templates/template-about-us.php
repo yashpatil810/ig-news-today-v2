@@ -332,9 +332,13 @@ $about_page_id = get_the_ID();
                     <div class="contact-form-submit-section">
                         <p class="contact-privacy-text">
                             <?php 
+                            $site_brand = get_bloginfo('name', 'display');
+                            if ( empty($site_brand) || $site_brand === 'iGamingNewsToday' ) {
+                                $site_brand = 'iGaming News Today';
+                            }
                             printf(
                                 esc_html__( 'By clicking submit, I acknowledge %s\'s %s', 'newstoday' ),
-                                'wheat-bear-950363.hostingersite.com',
+                                esc_html( $site_brand ),
                                 '<a href="' . esc_url( home_url( '/privacy-policy/' ) ) . '" class="privacy-policy-link">' . esc_html__( 'Privacy Policy', 'newstoday' ) . '</a>'
                             );
                             ?>
