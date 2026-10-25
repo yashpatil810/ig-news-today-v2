@@ -28,11 +28,16 @@ wp-content/uploads/
 # Plugins (install on server separately)
 wp-content/plugins/
 
-# Cache
+# Cache & Optimization
 wp-content/cache/
 wp-content/advanced-cache.php
 wp-content/wp-cache-config.php
+wp-content/wp-rocket-config/
 wp-content/debug.log
+
+# Temporary test scripts
+test-*.php
+test_*.php
 
 # All themes EXCEPT our custom theme
 wp-content/themes/*
