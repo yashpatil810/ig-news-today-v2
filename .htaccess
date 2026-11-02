@@ -21,7 +21,7 @@ AddCharset UTF-8 .atom .css .js .json .rss .vtt .xml
 Header unset ETag
 </IfModule>
 
-# Since we’re sending far-future expires, we don’t need ETags for static content.
+# Since weâ€™re sending far-future expires, we donâ€™t need ETags for static content.
 # developer.yahoo.com/performance/rules.html#etags
 FileETag None
 
@@ -97,7 +97,7 @@ SetOutputFilter DEFLATE
 <IfModule mod_headers.c>
 SetEnvIfNoCase ^(Accept-EncodXng|X-cept-Encoding|X{15}|~{15}|-{15})$ ^((gzip|deflate)\s*,?\s*)+|[X~-]{4,13}$ HAVE_Accept-Encoding
 RequestHeader append Accept-Encoding "gzip,deflate" env=HAVE_Accept-Encoding
-# Don’t compress images and other uncompressible content
+# Donâ€™t compress images and other uncompressible content
 SetEnvIfNoCase Request_URI \
 \.(?:gif|jpe?g|png|rar|zip|exe|flv|mov|wma|mp3|avi|swf|mp?g|mp4|webm|webp|pdf)$ no-gzip dont-vary
 </IfModule>
@@ -137,11 +137,11 @@ Header append Vary: Accept-Encoding
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-RewriteBase /
+RewriteBase /ig-news-today-v2/
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /index.php [L]
+RewriteRule . /ig-news-today-v2/index.php [L]
 </IfModule>
 
 # END WordPress
