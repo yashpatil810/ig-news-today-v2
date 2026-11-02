@@ -2,11 +2,12 @@
 /**
  * Author User Fields
  *
- * Adds custom "Job Title" and "LinkedIn URL" fields to the WordPress
- * Admin user profile / edit-user page.
+ * Adds custom "Job Title", "LinkedIn URL", "Twitter/X URL", and a native
+ * "Profile Photo / Avatar Upload" field to the WordPress Admin user profile
+ * and edit-user pages.
  *
- * Data is stored in wp_usermeta (meta keys: author_job_title, author_linkedin)
- * which is exactly what the About Us template already reads via get_user_meta().
+ * Automatically overrides WordPress get_avatar() with the uploaded custom image
+ * across all theme templates (About Us, Author Page, Single Author Box, etc.).
  *
  * @package NewsToday
  */
@@ -16,13 +17,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // ---------------------------------------------------------------------------
-// 1. Display the fields on "Your Profile" (own profile) page.
+// 1. Enqueue WordPress Media Uploader scripts on User Profile / Edit pages.
 // ---------------------------------------------------------------------------
-add_action( 'show_user_profile', 'newstoday_author_extra_fields' );
+add_action( 'admin_enqueue_scripts', 'newstoday_author_fields_admin_scripts' );
+function newstoday_author_fields_admin_scripts( $hook_suffix ) {
+    if ( in_array( $hook_suffix, array( 'profile.php', 'user-edit.php' ), true ) ) {
+        wp_enqueue_media();
+    }
+}
 
 // ---------------------------------------------------------------------------
-// 2. Display the fields on "Edit User" (admin editing another user) page.
+// 2. Display the fields on "Your Profile" (own profile) & "Edit User" pages.
 // ---------------------------------------------------------------------------
+add_action( 'show_user_profile', 'newstoday_author_extra_fields' );
 add_action( 'edit_user_profile', 'newstoday_author_extra_fields' );
 
 /**
@@ -35,9 +42,85 @@ function newstoday_author_extra_fields( WP_User $user ) {
     if ( ! current_user_can( 'edit_user', $user->ID ) ) {
         return;
     }
+
+    $avatar_id  = get_user_meta( $user->ID, 'author_custom_avatar', true );
+    $avatar_url = $avatar_id ? wp_get_attachment_image_url( $avatar_id, 'thumbnail' ) : '';
     ?>
-    <h2><?php esc_html_e( 'Author Profile Fields', 'newstoday' ); ?></h2>
+    <h2><?php esc_html_e( 'Author Profile & Photo Settings', 'newstoday' ); ?></h2>
     <table class="form-table" role="presentation">
+
+        <!-- Custom Profile Photo -->
+        <tr>
+            <th>
+                <label for="author_custom_avatar">
+                    <?php esc_html_e( 'Profile Photo', 'newstoday' ); ?>
+                </label>
+            </th>
+            <td>
+                <div class="author-avatar-upload-box" style="display: flex; align-items: center; gap: 20px;">
+                    <div id="author-avatar-preview" style="width: 96px; height: 96px; border-radius: 50%; overflow: hidden; background: #e5e5e5; border: 2px solid #ccd0d4; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        <?php if ( ! empty( $avatar_url ) ) : ?>
+                            <img src="<?php echo esc_url( $avatar_url ); ?>" style="width: 100%; height: 100%; object-fit: cover;" alt="" />
+                        <?php else : ?>
+                            <?php echo get_avatar( $user->ID, 96 ); ?>
+                        <?php endif; ?>
+                    </div>
+                    <div>
+                        <input type="hidden" name="author_custom_avatar" id="author_custom_avatar" value="<?php echo esc_attr( $avatar_id ); ?>" />
+                        <button type="button" class="button button-primary" id="author_avatar_upload_btn">
+                            <?php esc_html_e( 'Upload / Change Photo', 'newstoday' ); ?>
+                        </button>
+                        <button type="button" class="button button-secondary" id="author_avatar_remove_btn" style="<?php echo empty( $avatar_id ) ? 'display: none;' : ''; ?> margin-left: 8px;">
+                            <?php esc_html_e( 'Remove Photo', 'newstoday' ); ?>
+                        </button>
+                        <p class="description" style="margin-top: 8px;">
+                            <?php esc_html_e( 'Upload a photo directly from your computer or media library. This will be used as the author image everywhere on the site (About Us, Author Card, Single Post, etc.).', 'newstoday' ); ?>
+                        </p>
+                    </div>
+                </div>
+
+                <script>
+                jQuery(document).ready(function($) {
+                    var frame;
+                    var uploadBtn = $('#author_avatar_upload_btn');
+                    var removeBtn = $('#author_avatar_remove_btn');
+                    var inputField = $('#author_custom_avatar');
+                    var previewBox = $('#author-avatar-preview');
+
+                    uploadBtn.on('click', function(e) {
+                        e.preventDefault();
+                        if (frame) {
+                            frame.open();
+                            return;
+                        }
+                        frame = wp.media({
+                            title: '<?php echo esc_js( __( 'Select or Upload Profile Photo', 'newstoday' ) ); ?>',
+                            button: { text: '<?php echo esc_js( __( 'Use as Profile Photo', 'newstoday' ) ); ?>' },
+                            multiple: false,
+                            library: { type: 'image' }
+                        });
+
+                        frame.on('select', function() {
+                            var attachment = frame.state().get('selection').first().toJSON();
+                            var imgUrl = attachment.sizes && attachment.sizes.thumbnail ? attachment.sizes.thumbnail.url : attachment.url;
+                            inputField.val(attachment.id);
+                            previewBox.html('<img src="' + imgUrl + '" style="width: 100%; height: 100%; object-fit: cover;" alt="" />');
+                            removeBtn.show();
+                        });
+
+                        frame.open();
+                    });
+
+                    removeBtn.on('click', function(e) {
+                        e.preventDefault();
+                        inputField.val('');
+                        previewBox.html('<?php echo addslashes( get_avatar( 0, 96 ) ); ?>');
+                        removeBtn.hide();
+                    });
+                });
+                </script>
+            </td>
+        </tr>
 
         <!-- Job Title -->
         <tr>
@@ -110,13 +193,9 @@ function newstoday_author_extra_fields( WP_User $user ) {
 }
 
 // ---------------------------------------------------------------------------
-// 3. Save when "Your Profile" is updated (own profile).
+// 3. Save when "Your Profile" or "Edit User" is updated.
 // ---------------------------------------------------------------------------
 add_action( 'personal_options_update', 'newstoday_save_author_extra_fields' );
-
-// ---------------------------------------------------------------------------
-// 4. Save when an admin updates another user's profile.
-// ---------------------------------------------------------------------------
 add_action( 'edit_user_profile_update', 'newstoday_save_author_extra_fields' );
 
 /**
@@ -125,13 +204,19 @@ add_action( 'edit_user_profile_update', 'newstoday_save_author_extra_fields' );
  * @param int $user_id  ID of the user being saved.
  */
 function newstoday_save_author_extra_fields( int $user_id ) {
-    // Verify the current user has permission to edit this user.
     if ( ! current_user_can( 'edit_user', $user_id ) ) {
         return;
     }
 
-    // Verify nonce (WordPress core already checks nonce for user profile saves,
-    // but we add an extra capability check above for safety).
+    // --- Custom Profile Photo ---
+    if ( isset( $_POST['author_custom_avatar'] ) ) {
+        $avatar_id = absint( $_POST['author_custom_avatar'] );
+        if ( $avatar_id > 0 ) {
+            update_user_meta( $user_id, 'author_custom_avatar', $avatar_id );
+        } else {
+            delete_user_meta( $user_id, 'author_custom_avatar' );
+        }
+    }
 
     // --- Job Title ---
     if ( isset( $_POST['author_job_title'] ) ) {
@@ -153,4 +238,46 @@ function newstoday_save_author_extra_fields( int $user_id ) {
         $twitter_url = esc_url_raw( wp_unslash( $_POST['author_twitter'] ) );
         update_user_meta( $user_id, 'author_twitter', $twitter_url );
     }
+}
+
+// ---------------------------------------------------------------------------
+// 4. Override WordPress get_avatar() to use our uploaded custom photo.
+// ---------------------------------------------------------------------------
+add_filter( 'pre_get_avatar_data', 'newstoday_custom_avatar_data', 10, 2 );
+
+/**
+ * Replace gravatar URL with custom uploaded avatar image URL.
+ *
+ * @param array $args         Avatar args.
+ * @param mixed $id_or_email  User ID, email, or WP_User object.
+ * @return array
+ */
+function newstoday_custom_avatar_data( $args, $id_or_email ) {
+    $user_id = 0;
+
+    if ( is_numeric( $id_or_email ) ) {
+        $user_id = (int) $id_or_email;
+    } elseif ( is_string( $id_or_email ) && ( $user = get_user_by( 'email', $id_or_email ) ) ) {
+        $user_id = $user->ID;
+    } elseif ( is_object( $id_or_email ) ) {
+        if ( ! empty( $id_or_email->user_id ) ) {
+            $user_id = (int) $id_or_email->user_id;
+        } elseif ( ! empty( $id_or_email->ID ) ) {
+            $user_id = (int) $id_or_email->ID;
+        }
+    }
+
+    if ( $user_id > 0 ) {
+        $avatar_id = get_user_meta( $user_id, 'author_custom_avatar', true );
+        if ( $avatar_id ) {
+            $size = isset( $args['size'] ) ? (int) $args['size'] : 96;
+            $img_size = $size > 150 ? 'medium' : 'thumbnail';
+            $avatar_url = wp_get_attachment_image_url( (int) $avatar_id, $img_size );
+            if ( $avatar_url ) {
+                $args['url'] = $avatar_url;
+            }
+        }
+    }
+
+    return $args;
 }

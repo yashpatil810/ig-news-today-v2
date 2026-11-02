@@ -169,7 +169,7 @@ $home_page_id     = get_option('page_on_front');
                     .kc-section .kc-thumb img {
                         width: 100%;
                         height: 100%;
-                        object-fit: cover
+
                     }
 
                     .kc-section .kc-content {
