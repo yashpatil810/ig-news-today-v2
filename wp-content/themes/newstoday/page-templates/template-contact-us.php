@@ -150,9 +150,13 @@ get_header();
                     <div class="contact-form-submit-section">
                         <p class="contact-privacy-text">
                             <?php 
+                            $brand_host = wp_parse_url( home_url(), PHP_URL_HOST );
+                            if ( empty( $brand_host ) ) {
+                                $brand_host = get_bloginfo( 'name' );
+                            }
                             printf(
                                 esc_html__( 'By clicking submit, I acknowledge %s\'s %s', 'newstoday' ),
-                                'igamingnewstoday.com',
+                                esc_html( $brand_host ),
                                 '<a href="' . esc_url( home_url( '/privacy-policy/' ) ) . '" class="privacy-policy-link">' . esc_html__( 'Privacy Policy', 'newstoday' ) . '</a>'
                             );
                             ?>

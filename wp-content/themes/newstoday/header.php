@@ -17,10 +17,16 @@
 
 
 	<?php
-	// Only load live tracking, verification tags, and pixels on production igamingnewstoday.com (Item 1.5, 2.7)
-	$http_host = isset( $_SERVER['HTTP_HOST'] ) ? strtolower( sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) ) : '';
-	$is_live_site = ( $http_host === 'igamingnewstoday.com' || $http_host === 'www.igamingnewstoday.com' );
-	if ( $is_live_site ) :
+	// Dynamic domain detection from WordPress settings (auto-adapts when domain changes in Hostinger / WordPress)
+	$site_host  = wp_parse_url( home_url(), PHP_URL_HOST );
+	$is_staging = ( empty( $site_host ) || strpos( $site_host, 'hostingersite.com' ) !== false || strpos( $site_host, 'localhost' ) !== false || strpos( $site_host, '127.0.0.1' ) !== false );
+	$is_live    = ! $is_staging;
+
+	// Only load production tracking when live (not on staging or local)
+	if ( $is_live ) :
+		// Check if active domain is .com or .co dynamically
+		$is_com_domain = ( substr( $site_host, -4 ) === '.com' );
+		if ( $is_com_domain ) :
 	?>
 	<!-- Google Subscribe with Google (SWG) -->
 	<script async type="application/javascript" src="https://news.google.com/swg/js/v1/swg-basic.js"></script>
@@ -106,7 +112,10 @@
 	<!-- End Meta Pixel Code -->
 
 	<meta name="facebook-domain-verification" content="0eklej33utrlxnisr5qqffnrj6qcfe" />
-	<?php endif; ?>
+	<?php
+		endif; // End $is_com_domain
+	endif; // End $is_live
+	?>
 
 </head>
 
