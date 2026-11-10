@@ -17,8 +17,13 @@ the_post();
         <div class="single-post-body">
             <div class="single-post-content">
                 <div class="single-post-breadcrumbs">
-                    <a href="/">Home</a>
-                    <a href="<?php echo get_category_link(get_the_category()[0]->term_id); ?>"><?php echo get_the_category()[0]->name; ?></a>
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Home</a>
+                    <?php
+                    $categories = get_the_category();
+                    if ( ! empty( $categories ) ) :
+                    ?>
+                        <a href="<?php echo esc_url( get_category_link( $categories[0]->term_id ) ); ?>"><?php echo esc_html( $categories[0]->name ); ?></a>
+                    <?php endif; ?>
                     <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                 </div>
                 <h1 class="single-post-title"><?php echo the_title(); ?></h1>

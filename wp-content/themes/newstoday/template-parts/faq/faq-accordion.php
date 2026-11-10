@@ -33,23 +33,25 @@ if ( empty( $faq_items ) ) {
     $faq_items = array();
 }
 
-/**
- * Convert email addresses in text to clickable mailto links
- *
- * @param string $text The text containing email addresses
- * @return string Text with email addresses converted to mailto links
- */
-function convert_emails_to_links( $text ) {
-    // Pattern to match email addresses
-    $pattern = '/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/';
-    
-    // Replace email addresses with mailto links
-    $text = preg_replace_callback( $pattern, function( $matches ) {
-        $email = esc_attr( $matches[0] );
-        return '<a href="mailto:' . $email . '" class="faq-email-link">' . esc_html( $matches[0] ) . '</a>';
-    }, $text );
-    
-    return $text;
+if ( ! function_exists( 'convert_emails_to_links' ) ) {
+    /**
+     * Convert email addresses in text to clickable mailto links
+     *
+     * @param string $text The text containing email addresses
+     * @return string Text with email addresses converted to mailto links
+     */
+    function convert_emails_to_links( $text ) {
+        // Pattern to match email addresses
+        $pattern = '/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/';
+        
+        // Replace email addresses with mailto links
+        $text = preg_replace_callback( $pattern, function( $matches ) {
+            $email = esc_attr( $matches[0] );
+            return '<a href="mailto:' . $email . '" class="faq-email-link">' . esc_html( $matches[0] ) . '</a>';
+        }, $text );
+        
+        return $text;
+    }
 }
 ?>
 
